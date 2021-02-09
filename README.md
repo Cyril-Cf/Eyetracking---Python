@@ -1,6 +1,6 @@
 # Eyetracking---Python
 
-Ce script a été créé dans le but de mesurer l'orientation du regard des utilisateurs au moyen du logiciel OpenSesame. Il remplit 2 usages : 
+Ce script a été créé dans le but de mesurer l'orientation du regard des utilisateurs au moyen du logiciel OpenSesame (https://github.com/open-cogsci/OpenSesame/releases). Il remplit 2 usages : 
 
 - Simuler un environnement de boite email avec faible interaction (voir Boite mail.jpg). Les utilisateurs devaient selectionner tous les emails correspondant aux critères de recherche en haut de la page et cliquer sur la poubelle pour les supprimer.
 
