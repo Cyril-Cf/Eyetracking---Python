@@ -6,7 +6,7 @@ Ce script a été créé dans le but de mesurer l'orientation du regard des util
 
 ![boite_mail](/Boite_mail.jpg) 
 
-- Mesurer l'activité occulaire au moyen d'un Eye Tracker. Le script devait ainsi enregistrer puis rapporter les coordonnées et timestamp dans un fichier à l'issue de la séance. Le traitement automatisé et la réalisation de carte de chaleurs se faisaient pas des traitements statistiques subséquents :
+- Mesurer l'activité occulaire au moyen d'un Eye Tracker. Le script devait ainsi enregistrer puis rapporter les coordonnées et timestamps dans un fichier CSV à l'issue de la séance. La réalisation de carte de chaleurs se faisait par des traitements statistiques subséquents :
 
 ![heatmap](/Heatmap.png) 
 ![Regards](/Regards.png) 
