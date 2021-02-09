@@ -171,7 +171,9 @@ while index != 0:
 	else:
 		x = -1
 		y = -1
-
+	
+	# De la meme facon que plus haut, les coordonnees ne sont pas constantes et sont modifiees pour chaque possibilite	
+		
 	if x>=-641 and x<-557 and y>=-527 and y<-470 and total_time > 1000:
 			index = 0
 			
