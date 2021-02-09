@@ -1,10 +1,10 @@
-# Set up a few things
 from openexp.mouse import mouse
 from openexp.canvas import canvas
 from openexp.keyboard import keyboard
 from openexp.sampler import sampler
 from random import random,shuffle
 
+#variables
 
 my_mouse = mouse(exp, visible=True)
 index = 99
@@ -15,13 +15,32 @@ for i in range(30):
 	cases.append(0)
 start_time = self.time()
 total_time = 0
-
-
 intervalle = False
 complexite = False #true = facile
 duree = False #true = rapide
 Interruption = False
+clics_attendus = clics[nbinterruptions2]
+good_clics = 0
+is_interruption = False
+has_fin_interruption = False
+temoin_rl = False
+current_interruption = 0
+display_response_time = 500
+display_chiffre_time = 1000
+printing_time = 1000
+chiffres_tapes = ",,,"
+chiffres_a_afficher = ""
+longueur_demande = 3
+rl = 0
+rl2 = 0
+interr0 = 0
+typeinterruption = 0
+chiffrenoir = exp.get_file(u'chiffrenoir.jpg')
+croix_pleine = exp.get_file(u'croix.png')
+croix_vide = exp.get_file(u'vide.png')
 
+#Recupération des zones de clics, ajout ou retrait d'une croix dans les box de selection des emails
+#impossible de faire une fonction à cause des zones de clics non constantes sur les images
 
 if str(self.get("Image")) == "16.jpg" or str(self.get("Image")) == "17.jpg" or str(self.get("Image")) == "10.jpg":
 	Interruption = True
@@ -70,10 +89,11 @@ if str(self.get("Image")) == "13.jpg" or str(self.get("Image")) == "24.jpg" or s
 if str(self.get("Image")) == "3.jpg" or str(self.get("Image")) == "11.jpg" or str(self.get("Image")) == "15.jpg" or str(self.get("Image")) == "22.jpg" or str(self.get("Image")) == "23.jpg" or str(self.get("Image")) == "27.jpg":
 	self.log("Non interrompu")
 
-
 self.log(self.get("Image"))
 self.log("VD,Croix,Temps,Reponse 1,Reponse 2,Reponse 3")
 
+# Au cours de la tâche de recherche d'email, les partipants sont interrompus par une tache de mémoire de travail dans le but de les perturber
+# Fonction avec les paramètres de la tâche d'interruption
 
 def create_interruption(numero_tableau, taille_exercice):
 	global my_canvas,printing_time,my_keyboard,display_response_time,display_chiffre_time
@@ -107,24 +127,8 @@ def create_interruption(numero_tableau, taille_exercice):
 	
 	self.log(suite_generee)
 	return suite_generee
-	
-clics_attendus = clics[nbinterruptions2]
-good_clics = 0
-is_interruption = False
-has_fin_interruption = False
-temoin_rl = False
 
-current_interruption = 0
-display_response_time = 500
-display_chiffre_time = 1000
-printing_time = 1000
-chiffres_tapes = ",,,"
-chiffres_a_afficher = ""
-longueur_demande = 3
-rl = 0
-rl2 = 0
-interr0 = 0
-typeinterruption = 0
+# Etat des lieux de la situation de la boucle
 
 if Interruption == True:
 	if complexite == True:
@@ -156,9 +160,8 @@ if Interruption == True:
 			tab_interruption = suites_interruption
 
 
-chiffrenoir = exp.get_file(u'chiffrenoir.jpg')
-croix_pleine = exp.get_file(u'croix.png')
-croix_vide = exp.get_file(u'vide.png')
+# Boucle principale. Tant que l'utilisateur ne clique pas sur la corbeille après avoir selectionné les emails ciblés, l'ecran affichera la tâche.
+			
 while index != 0:
 	en_colonne=False
 	
@@ -322,7 +325,8 @@ while index != 0:
 		index = 30
 		en_colonne=True
 		
-		
+	# Declenchement de l'interruption si le nombre d'emails attendus est atteint, sinon poursuite de la tâche
+	
 	if is_interruption:
 		key, end_time = my_keyboard.get_key(timeout=3000)
 		if key != None:
@@ -521,29 +525,27 @@ while index != 0:
 				if temoin_rl:
 					temoin_rl = False
 
-self.log("Nb de clic,"+str(clics_attendus))
-self.log("TOT," + str(total_time))
-if Interruption == True:
-	self.log("RL," + str(rl2))
-self.log("")
+		self.log("Nb de clic,"+str(clics_attendus))
+		self.log("TOT," + str(total_time))
+		if Interruption == True:
+			self.log("RL," + str(rl2))
+			self.log("")
 
-nbessai += 1
-nbessai2 = 30 - nbessai
+			nbessai += 1
+			nbessai2 = 30 - nbessai
 
-Fondnoir1 = exp.get_file("fond noir.jpg")
-my_canvas.image(Fondnoir1, y=-540, x=-960, center=False)
-my_canvas.show()
-my_canvas.text('Vous pouvez cligner des yeux', center=True, x=0, y=0, color= u'white')
-my_canvas.show()
+			Fondnoir1 = exp.get_file("fond noir.jpg")
+			my_canvas.image(Fondnoir1, y=-540, x=-960, center=False)
+			my_canvas.show()
+			my_canvas.text('Vous pouvez cligner des yeux', center=True, x=0, y=0, color= u'white')
+			my_canvas.show()
 
-if nbessai2 > 1:
-	my_canvas.text('Nombre d\'essais restants : '+str(nbessai2), center=True, x=0, y=30, color= u'white')
-	my_canvas.show()
-	
-if nbessai2 == 1:
-	my_canvas.text('Nombre d\'essai restant : '+str(nbessai2), center=True, x=0, y=30, color= u'white')
-	my_canvas.show()
+			if nbessai2 > 1:
+				my_canvas.text('Nombre d\'essais restants : '+str(nbessai2), center=True, x=0, y=30, color= u'white')
+				my_canvas.show()
 
-
+			if nbessai2 == 1:
+				my_canvas.text('Nombre d\'essai restant : '+str(nbessai2), center=True, x=0, y=30, color= u'white')
+				my_canvas.show()
 
 self.sleep(2500)
